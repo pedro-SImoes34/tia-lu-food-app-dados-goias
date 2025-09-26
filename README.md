@@ -1,11 +1,11 @@
 # 🍔 Sistema de Gerenciamento de Pedidos
 
 ## 👥 Equipe
-- Membro 1: __________________
-- Membro 2: __________________
-- Membro 3: __________________
-- Membro 4: __________________
-- Membro 5: __________________
+- Membro 1: Danilo Motta
+- Membro 2: Gabriel da Silva
+- Membro 3: Guilherme Viana
+- Membro 4: Pedro Santos Simões da Silva
+- Membro 5: Vitor Hugo Lima Silva Bittencourt
 
 ---
 
