@@ -98,23 +98,47 @@ def criar_pedido(nome_cliente, itens):
     global valor_total
     
     for item in menu_de_itens:
-        if item[0] == codigo:
-            valor_total += item[3]
+        if item[0] == itens: #verifica se o código do produto está na lista de itens escolhidos
+            valor_total = item[3]
 
-    desconto = input("Deseja adicionar algum cupom de desconto? (S/N): ")
-    cupom = "GOIAS10"
-    if desconto == "S":
-        cupom = input("Digite o cupom: ") 
-        if cupom == "GOIAS10":
-            valor_desconto = valor_total * 0.1 
-            valor_total -= valor_desconto
-            print("Você ganhou 10% de desconto!")
-            print(f"O valor do seu pedido acabou de cair para R${valor_total:.2f}!!")
+    valido = 0
+    while valido == 0: 
+        desconto = input("Deseja adicionar algum cupom de desconto? (S/N): ")
+        cupom = "GOIAS10"
+        
+        if desconto == "S":
+            cupom = input("Digite o cupom: ") 
+            if cupom == "GOIAS10":
+                valor_desconto = valor_total * 0.1 
+                valor_total -= valor_desconto
+                print("Você ganhou 10% de desconto!")
+                print(f"O valor do seu pedido acabou de cair para R${valor_total:.2f}!!")
+                valido = 1
+            
+            else:
+                print("Cupom inválido!")
+                print("1 - Tentar novamente.")
+                print("2 - Continuar sem cupom.")
+                resposta = int(input("Escolha uma opção: "))
+                
+                if resposta == 1:
+                    valido = 0
+              
+                elif resposta == 2:
+                    valido = 1
+                    print(f"O seu pedido ficou no valor de R${valor_total:.2f}")
+              
+                else:
+                    print("Não consegui te entender, tente inserir o cupom novamente...")
+                    valido = 0
+
+        elif desconto == "N":
+            print(f"O seu pedido ficou no valor de R${valor_total:.2f}")
+            valido = 1
+
         else:
-            print("Cupom inválido!")
-
-    elif desconto == "N":
-        print(f"O seu pedido ficou no valor de R${valor_total:.2f}")
+            print("Desculpe, não entendi sua resposta, tente novamente.")
+        
 
 
     pedido = [codigo, nome_cliente, itens, "AGUARDANDO APROVACAO", valor_total]     
@@ -278,18 +302,27 @@ def menu_pedidos():
         print("5 - Finalizar Entrega")
         print("6 - Exibir todos os pedidos")
         print("7 - Filtrar pedidos por status")
-        print("8- Voltar ao menu anterior")
+        print("8 - Voltar ao menu anterior")
         print("9 - Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
             nome = input("Nome do cliente: ")
             itens = int(input("Itens do pedido: "))
+
+            item_encontrado = False
             for novo_item in menu_de_itens:
                 if itens == novo_item[0]:
-                    criar_pedido(nome, itens)
-                else:
-                    print("Item não encontrado, tente novamente.")
+                    item_encontrado = True
+                    if novo_item[4] > 0:
+                        criar_pedido(nome, itens)
+                        novo_item[4] -= 1
+                    else:
+                        print("No momento estamos em falta deste item. Sentimos muito por isso ☹️")
+                    break
+            if not item_encontrado:
+                print("Item não encontrado, tente novamente.")
+
         elif opcao == "2":
             processar_pedido()
         elif opcao == "3":
