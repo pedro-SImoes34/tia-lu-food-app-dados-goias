@@ -2,8 +2,8 @@
 
 ## 👥 Equipe
 - Membro 1: Danilo Motta Rodrigues
-- Membro 2: Gabriel da Silva
-- Membro 3: Guilherme Viana
+- Membro 2: Gabriel da Silva Carvalho
+- Membro 3: Guilherme Viana Oliveira
 - Membro 4: Pedro Santos Simões da Silva
 - Membro 5: Vitor Hugo Lima Silva Bittencourt
 
