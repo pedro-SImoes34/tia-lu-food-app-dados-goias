@@ -1,7 +1,7 @@
 # 🍔 Sistema de Gerenciamento de Pedidos
 
 ## 👥 Equipe
-- Membro 1: Danilo Motta
+- Membro 1: Danilo Motta Rodrigues
 - Membro 2: Gabriel da Silva
 - Membro 3: Guilherme Viana
 - Membro 4: Pedro Santos Simões da Silva
