@@ -14,7 +14,6 @@ def cadastrar_item():
     proximo_codigo += 1
     print("Item cadastrado com sucesso!")
 
-
 def atualizar_item():
     codigo = int(input("\n Digite o código do item a ser atualizado:  "))
     for item in menu_de_itens:
@@ -98,7 +97,7 @@ def criar_pedido(nome_cliente, itens):
     valor_total = 0
     
     for item in menu_de_itens:
-        if item[0] == itens: #verifica se o código do produto está na lista de itens escolhidos
+        if item[0] == itens: 
             valor_total += item[3]
 
     valido = 0
@@ -135,16 +134,15 @@ def criar_pedido(nome_cliente, itens):
             print("\n Desculpe, não entendi sua resposta, tente novamente.")
         
     pedido = [codigo, nome_cliente, itens, "AGUARDANDO APROVACAO", valor_total]     
-    fila_pedidos_pendentes.append(pedido)  # vai para a fila de pendentes
-    todos_pedidos.append(pedido)           # também entra no histórico
+    fila_pedidos_pendentes.append(pedido) 
+    todos_pedidos.append(pedido)   
     print(f"Pedido {codigo} criado para {nome_cliente} e está AGUARDANDO APROVACAO.")
-
 
 def processar_pedido():
     if len(fila_pedidos_pendentes) == 0:
         print("Nenhum pedido pendente para processar.")
     else:
-        pedido = fila_pedidos_pendentes.pop(0)  # pega o mais antigo
+        pedido = fila_pedidos_pendentes.pop(0)
         print(f"\n Processando pedido {pedido[0]} de valor R${pedido[4]:.2f} do cliente {pedido[1]}")
         print("1 - Aceitar pedido")
         print("2 - Rejeitar pedido")
@@ -180,7 +178,6 @@ def preparar_pedido():
             pedido[3] = "CANCELADO"
             print(f"Pedido {pedido[0]} foi cancelado.")
 
-
 def enviar_para_entrega():
     if len(fila_pedidos_prontos) == 0:
         print("Nenhum pedido pronto para enviar.")
@@ -190,7 +187,6 @@ def enviar_para_entrega():
         fila_pedidos_entrega.append(pedido)
         print(f"Pedido {pedido[0]} de {pedido[1]} SAIU PARA ENTREGA.")
 
-
 def finalizar_entrega():
     if len(fila_pedidos_entrega) == 0:
         print("Nenhum pedido em rota de entrega.")
@@ -198,7 +194,6 @@ def finalizar_entrega():
         pedido = fila_pedidos_entrega.pop(0)
         pedido[3] = "ENTREGUE"
         print(f"Pedido {pedido[0]} foi ENTREGUE ao cliente {pedido[1]}.")
-
 
 def exibir_pedidos():
     print("\n--- LISTA DE PEDIDOS ---")
@@ -227,7 +222,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe mais pedidos com esse status no momento.")
             
-    
     if filtro == "2":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -237,7 +231,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
                 
-
     if filtro == "3":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -247,7 +240,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "4":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -257,7 +249,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "5":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -267,7 +258,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "6":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -277,7 +267,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "7":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -287,7 +276,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "8":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -297,7 +285,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
     if filtro == "9":
         busca_sucedida = False
         for pedido in todos_pedidos:
@@ -307,11 +294,6 @@ def filtrar_pedidos():
         if not busca_sucedida:
             print("Não existe pedidos com esse status no momento.")
             
-
-
-
-
-
 def menu_pedidos():
     sair = 0
     while sair == 0:
