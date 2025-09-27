@@ -95,7 +95,6 @@ valor_total = 0
 
 def criar_pedido(nome_cliente, itens):
     codigo = len(todos_pedidos) + 1 
-    soma_itens = []
     global valor_total
     
     for item in menu_de_itens:
@@ -108,8 +107,15 @@ def criar_pedido(nome_cliente, itens):
         cupom = input("Digite o cupom: ") 
         if cupom == "GOIAS10":
             valor_desconto = valor_total * 0.1 
-            valor_final = valor_total - valor_desconto
+            valor_total -= valor_desconto
             print("Você ganhou 10% de desconto!")
+            print(f"O valor do seu pedido acabou de cair para R${valor_total:.2f}!!")
+        else:
+            print("Cupom inválido!")
+
+    elif desconto == "N":
+        print(f"O seu pedido ficou no valor de R${valor_total:.2f}")
+
 
     pedido = [codigo, nome_cliente, itens, "AGUARDANDO APROVACAO", valor_total]     
     fila_pedidos_pendentes.append(pedido)  # vai para a fila de pendentes
@@ -139,22 +145,22 @@ def preparar_pedido():
     if len(fila_pedidos_aceitos) == 0:
         print("Nenhum pedido aceito para preparar.")
 
+    else:
+        pedido = fila_pedidos_aceitos.pop(0)
+        print("1- Cancelar o pedido")
+        print("2- Prosseguir com o pedido")  
+        escolha = input("Digite a sua escolha: ")
 
-    pedido = fila_pedidos_aceitos.pop(0)
-    print("1- Cancelar o pedido")
-    print("2- Prosseguir com o pedido")  
-    escolha = input("Digite a sua escolha: ")
+        if escolha == "1":
+            pedido[3] = "CANCELADO"
+            print(f"Pedido {pedido[0]} foi cancelado.")
 
-    if escolha == "1":
-        pedido[3] = "CANCELADO"
-        print(f"Pedido {pedido[0]} foi cancelado.")
-
-    elif escolha == "2":
-        pedido[3] = "FAZENDO"
-        print(f"Pedido {pedido[0]} está sendo preparado...")
-        pedido[3] = "FEITO"
-        fila_pedidos_prontos.append(pedido)
-        print(f"Pedido {pedido[0]} está FEITO e agora ESPERANDO ENTREGADOR.")
+        elif escolha == "2":
+            pedido[3] = "FAZENDO"
+            print(f"Pedido {pedido[0]} está sendo preparado...")
+            pedido[3] = "FEITO"
+            fila_pedidos_prontos.append(pedido)
+            print(f"Pedido {pedido[0]} está FEITO e agora ESPERANDO ENTREGADOR.")
 
 
 def enviar_para_entrega():
@@ -182,6 +188,85 @@ def exibir_pedidos():
         print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Status: {pedido[3]}")
     print("-------------------------\n")
 
+def filtrar_pedidos():
+    print("----- TODOS OS STATUS -----")
+    print("1 - AGUARDANDO APROVACAO")
+    print("2 - ACEITO")
+    print("3 - FAZENDO")
+    print("4 - FEITO")
+    print("5 - ESPERANDO ENTREGADOR")
+    print("6 - SAIU PARA ENTREGA")
+    print("7 - ENTREGUE")
+    print("8 - CANCELADO")
+    print("9 - REJEITADO")
+    filtro = input("Qual status deseja usar como filtro: ")
+    if filtro == "1":
+        for pedido in todos_pedidos:
+            if pedido[3] == "AGUARDANDO APROVACAO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe mais pedidos com esse status no momento.")
+    
+    if filtro == "2":
+        for pedido in todos_pedidos:
+            if pedido[3] == "ACEITO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "3":
+        for pedido in todos_pedidos:
+            if pedido[3] == "FAZENDO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "4":
+        for pedido in todos_pedidos:
+            if pedido[3] == "FEITO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "5":
+        for pedido in todos_pedidos:
+            if pedido[3] == "ESPERANDO ENTREGADOR":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "6":
+        for pedido in todos_pedidos:
+            if pedido[3] == "SAIU PARA ENTREGA":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "7":
+        for pedido in todos_pedidos:
+            if pedido[3] == "ENTREGUE":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "8":
+        for pedido in todos_pedidos:
+            if pedido[3] == "CANCELADO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+    if filtro == "9":
+        for pedido in todos_pedidos:
+            if pedido[3] == "REJEITADO":
+                print(f"Código: {pedido[0]} | Cliente: {pedido[1]} | Itens: {pedido[2]} | Status: {pedido[3]} | Valor do Pedido: {pedido[4]:.2f}")
+            else:
+                print("Não existe pedidos com esse status no momento.")
+
+
+
+
+
 def menu_pedidos():
     sair = 0
     while sair == 0:
@@ -192,14 +277,19 @@ def menu_pedidos():
         print("4 - Enviar para Entrega")
         print("5 - Finalizar Entrega")
         print("6 - Exibir todos os pedidos")
-        print("7- Voltar ao menu anterior")
-        print("8 - Sair")
+        print("7 - Filtrar pedidos por status")
+        print("8- Voltar ao menu anterior")
+        print("9 - Sair")
         opcao = input("Escolha uma opção: ")
 
         if opcao == "1":
             nome = input("Nome do cliente: ")
-            itens = input("Itens do pedido: ")
-            criar_pedido(nome, itens)
+            itens = int(input("Itens do pedido: "))
+            for novo_item in menu_de_itens:
+                if itens == novo_item[0]:
+                    criar_pedido(nome, itens)
+                else:
+                    print("Item não encontrado, tente novamente.")
         elif opcao == "2":
             processar_pedido()
         elif opcao == "3":
@@ -211,8 +301,10 @@ def menu_pedidos():
         elif opcao == "6":
             exibir_pedidos()
         elif opcao == "7":
-            menu_principal()
+            filtrar_pedidos()
         elif opcao == "8":
+            menu_principal()
+        elif opcao == "9":
             sair = 1
             print("Saindo do sistema...")
         else:
